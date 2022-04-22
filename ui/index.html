@@ -1,0 +1,211 @@
+<html>
+<head>
+<title>UnVR</title>
+<style>
+
+body, html {
+  background-color: #333;
+  margin: 0px;
+  font-family: monospace;
+}
+
+#panel {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 300px;
+  height: 100%;
+  padding: 10px;
+    background-color: #c33;
+}
+
+#previewcontainer {
+  position: fixed;
+  top: 0px;
+  left: 300px;
+  width: calc(100% - 300px);
+  height: 100%;
+}
+
+#preview {
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.widerange {
+  width: 270px;
+}
+
+#numbers {
+  font-weight: 900;
+  font-size: 1.2em;
+  font-family: monospace;
+}
+
+.header {
+  margin-top: 15px;
+  margin-bottom: 5px;
+
+  font-weight: 900;
+  font-size: 1.2em;
+}
+
+.look {
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.rangeaction {
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.activelook {
+  color: #fff;
+  cursor: pointer;
+}
+
+#lookcontrols {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------------------*/
+@keyframes spinner-line-fade-more {
+  0%, 100% {
+    opacity: 0; /* minimum opacity */
+  }
+  1% {
+    opacity: 1;
+  }
+}
+
+@keyframes spinner-line-fade-quick {
+  0%, 39%, 100% {
+    opacity: 0.25; /* minimum opacity */
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes spinner-line-fade-default {
+  0%, 100% {
+    opacity: 0.22; /* minimum opacity */
+  }
+  1% {
+    opacity: 1;
+  }
+}
+
+@keyframes spinner-line-shrink {
+  0%, 25%, 100% {
+    /* minimum scale and opacity */
+    transform: scale(0.5);
+    opacity: 0.25;
+  }
+  26% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* --------------------------------------------------------------------------------------*/
+
+</style>
+</head>
+<body onload="init()">
+<script>
+window.unvrInitData = !UNVR_INIT_DATA!;
+</script>
+<script src="spin.umd.js"></script>
+<script src="ui.js"></script>
+
+<div id="panel">
+    <div class="header">
+      Output Dimensions:
+    </div>
+    <div>
+      <select id="dstdim" onchange="onDstDimChange()">
+        <option>1920x1080</option>
+        <option>1080x1920</option>
+      </select>
+    </div>
+
+    <div class="header">
+      Step:
+    </div>
+    <div>
+      <select id="step" onchange="onStepChange()">
+        <option>1</option>
+        <option>5</option>
+        <option>10</option>
+        <option>20</option>
+        <option>30</option>
+        <option>60</option>
+        <option>300</option>
+      </select>
+    </div>
+
+    <div class="header">
+      <div>
+        TS: <span id="scrubtext" class="numbers"></span>
+      </div>
+      <div>
+        <span id="ranges"></span>
+      </div>
+    </div>
+    <div>
+      <input class="widerange" id='scrub' type='range' onchange="onScrubChange()" oninput="updateRangeText('scrub', 'scrubtext')"></input>
+    </div>
+
+    <div class="header">
+      Base FOV: <span id="basefovtext" class="numbers"></span>
+    </div>
+    <div>
+      <input class="widerange" id='basefov' type='range' onchange="onBaseFovChange()"  oninput="updateRangeText('basefov', 'basefovtext')"></input>
+    </div>
+
+    <div class="header">
+      Looks
+    </div>
+    <div>
+      <div id="looks"></div>
+    </div>
+
+    <div id="lookcontrols">
+      <div class="header">
+        Look FOV: <span id="lookfovtext" class="numbers"></span>
+      </div>
+      <div>
+        <input class="widerange" id='lookfov' type='range' onchange="updateLookProp('fov', 'lookfov')" oninput="updateRangeText('lookfov', 'lookfovtext')"></input>
+      </div>
+
+      <div class="header">
+        Look Pitch: <span id="lookpitchtext" class="numbers"></span>
+      </div>
+      <div>
+        <input class="widerange" id='lookpitch' type='range' onchange="updateLookProp('pitch', 'lookpitch')" oninput="updateRangeText('lookpitch', 'lookpitchtext')"></input>
+      </div>
+
+      <div class="header">
+        Look Yaw: <span id="lookyawtext" class="numbers"></span>
+      </div>
+      <div>
+        <input class="widerange" id='lookyaw' type='range' onchange="updateLookProp('yaw', 'lookyaw')" oninput="updateRangeText('lookyaw', 'lookyawtext')"></input>
+      </div>
+
+      <div class="header">
+        Look Roll: <span id="lookrolltext" class="numbers"></span>
+      </div>
+      <div>
+        <input class="widerange" id='lookroll' type='range' onchange="updateLookProp('roll', 'lookroll')" oninput="updateRangeText('lookroll', 'lookrolltext')"></input>
+      </div>
+    </div>
+</div>
+
+<div id="previewcontainer">
+    <img id="preview" src="/preview/0" onload="onPreviewImageLoaded()">
+</div>
+</body>
+</html>
