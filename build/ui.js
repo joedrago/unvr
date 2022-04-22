@@ -371,7 +371,7 @@
   // Scrub Handler
 
   // onScrubChange() is special as it simply moves the preview image, and doesn't "change anything" (in unvr).
-  window.onScrubChange = function() {
+  window.onScrubChange = function(event) {
     var timestamp;
     timestamp = parseInt(document.getElementById('scrub').value);
     // console.log "onScrub: ", timestamp
@@ -382,7 +382,7 @@
     return scrubDelayTimeout = setTimeout(function() {
       scrubDelayTimeout = null;
       return refresh();
-    }, 50);
+    }, 60);
   };
 
   // ---------------------------------------------------------------------------------------

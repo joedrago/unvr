@@ -319,7 +319,7 @@ window.onNewLook = (afterIndex) ->
 # Scrub Handler
 
 # onScrubChange() is special as it simply moves the preview image, and doesn't "change anything" (in unvr).
-window.onScrubChange = ->
+window.onScrubChange = (event) ->
   timestamp = parseInt(document.getElementById('scrub').value)
   # console.log "onScrub: ", timestamp
   spin(true)
@@ -329,7 +329,7 @@ window.onScrubChange = ->
   scrubDelayTimeout = setTimeout ->
     scrubDelayTimeout = null
     refresh()
-  , 50
+  , 60
 
 # ---------------------------------------------------------------------------------------
 # Init
