@@ -21,9 +21,9 @@ buildEverything = (callback) ->
   coffee.stdout.on 'data', (data) ->
     print data.toString()
   coffee.on 'exit', (code) ->
-  #   rawJS = fs.readFileSync('build/main.js')
-  #   rawJS = "#!/usr/bin/env node\n\n" + rawJS
-  #   fs.writeFileSync("build/unvr", rawJS)
+    rawJS = fs.readFileSync('build/main.js')
+    rawJS = "#!/usr/bin/env node\n\n" + rawJS
+    fs.writeFileSync("build/unvrcli", rawJS)
     util.log "Compilation finished."
   #   callback?() if code is 0
 

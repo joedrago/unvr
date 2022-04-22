@@ -9,7 +9,7 @@
   "author": "Joe Drago",
   "version": "0.0.1",
   "bin": {
-    "unvr": "./build/main.js"
+    "unvr": "./build/unvrcli"
   },
   "homepage": "https://github.com/joedrago/unvr",
   "repository": {
