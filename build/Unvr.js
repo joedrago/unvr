@@ -580,6 +580,8 @@
       ffmpegArgs.push('-map');
       ffmpegArgs.push('1:a:0');
       ffmpegArgs.push('-shortest');
+      ffmpegArgs.push('-aspect');
+      ffmpegArgs.push(`${this.dstW}:${this.dstH}`);
       ffmpegArgs.push(dstFilename);
       deleteIfExists(dstFilename);
       await this.spawnPromise(ffmpegEXE, ffmpegArgs, this.spawnOptions());

@@ -492,6 +492,8 @@ class Unvr
     ffmpegArgs.push '-map'
     ffmpegArgs.push '1:a:0'
     ffmpegArgs.push '-shortest'
+    ffmpegArgs.push '-aspect'
+    ffmpegArgs.push "#{@dstW}:#{@dstH}"
     ffmpegArgs.push dstFilename
     deleteIfExists(dstFilename)
     await @spawnPromise(ffmpegEXE, ffmpegArgs, @spawnOptions())
