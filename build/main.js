@@ -58,9 +58,9 @@
       return res.send(JSON.stringify(unvr.export()));
     });
     http.listen(3123, '127.0.0.1', function() {
-      return console.log("Listening: http://127.0.0.1:3123/");
+      console.log("Listening: http://127.0.0.1:3123/");
+      return open('http://127.0.0.1:3123/');
     });
-    // open('http://127.0.0.1:3123/')
     return process.on("SIGINT", function() {
       console.log("Saving settings...");
       fs.writeFileSync(`${unvr.srcFilename}.unvr`, JSON.stringify(unvr.export(), null, 2));

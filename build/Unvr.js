@@ -28,7 +28,7 @@
 
   DEFAULT_ROTATED_FOV = 50;
 
-  DEFAULT_CRF = 20;
+  DEFAULT_CRF = 23;
 
   fatalError = function(reason) {
     throw new Error(reason);
@@ -284,7 +284,7 @@
       startRange = 0;
       endRange = this.srcDuration;
       if ((this.rangeStart != null) && this.rangeEnd) {
-        startRange = this.rangeStart;
+        startRange = this.rangeStart - (this.rangeStart % this.promiseStep);
         endRange = this.rangeEnd;
       }
       for (t = i = ref = startRange, ref1 = endRange, ref2 = this.promiseStep; ref2 !== 0 && (ref2 > 0 ? i <= ref1 : i >= ref1); t = i += ref2) {
@@ -526,6 +526,8 @@
         ffmpegArgs.push('1');
         ffmpegArgs.push('-keyint_min');
         ffmpegArgs.push('1');
+        ffmpegArgs.push('-aspect');
+        ffmpegArgs.push(`${this.dstW}:${this.dstH}`);
         ffmpegArgs.push(lookFilename);
         this.progressLog(`Rendering look ${lookIndex + 1}/${looks.length} ...`);
         deleteIfExists(lookFilename);

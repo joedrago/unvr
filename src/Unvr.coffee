@@ -13,7 +13,7 @@ DEFAULT_OUTPUT_HEIGHT = 1080
 DEFAULT_FPS = 30
 DEFAULT_FOV = 110
 DEFAULT_ROTATED_FOV = 50
-DEFAULT_CRF = 20
+DEFAULT_CRF = 23
 
 fatalError = (reason) ->
   throw new Error(reason)
@@ -222,7 +222,7 @@ class Unvr
     startRange = 0
     endRange = @srcDuration
     if @rangeStart? and @rangeEnd
-      startRange = @rangeStart
+      startRange = @rangeStart - (@rangeStart % @promiseStep)
       endRange = @rangeEnd
     for t in [startRange..endRange] by @promiseStep
       do (t, signals) =>
@@ -439,6 +439,9 @@ class Unvr
       ffmpegArgs.push '1'
       ffmpegArgs.push '-keyint_min'
       ffmpegArgs.push '1'
+
+      ffmpegArgs.push '-aspect'
+      ffmpegArgs.push "#{@dstW}:#{@dstH}"
 
       ffmpegArgs.push lookFilename
 

@@ -140,7 +140,7 @@
       document.getElementById('lookfov').value = activeLook.fov;
       document.getElementById('lookpitch').value = activeLook.pitch;
       document.getElementById('lookyaw').value = activeLook.yaw;
-      document.getElementById('lookroll').value = activeLook.fov;
+      document.getElementById('lookroll').value = activeLook.roll;
     }
     updateRangeText('scrub', 'scrubtext');
     updateRangeText('basefov', 'basefovtext');

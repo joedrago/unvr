@@ -49,7 +49,7 @@ serve = (unvr) ->
 
   http.listen 3123, '127.0.0.1', ->
     console.log "Listening: http://127.0.0.1:3123/"
-    # open('http://127.0.0.1:3123/')
+    open('http://127.0.0.1:3123/')
 
   process.on "SIGINT", ->
     console.log( "Saving settings..." );
