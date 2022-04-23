@@ -175,6 +175,13 @@ window.unvrInitData = !UNVR_INIT_DATA!;
 
     <div id="lookcontrols">
       <div class="header">
+        Look Scrub: <span id="lookscrubtext" class="numbers"></span>
+      </div>
+      <div>
+        <input class="widerange" id='lookscrub' type='range' onchange="onLookScrubChange()" oninput="updateRangeText('lookscrub', 'lookscrubtext')"></input>
+      </div>
+
+      <div class="header">
         Look FOV: <span id="lookfovtext" class="numbers"></span>
       </div>
       <div>

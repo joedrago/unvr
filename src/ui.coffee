@@ -121,8 +121,23 @@ refresh = ->
     document.getElementById('lookyaw').value = activeLook.yaw
     document.getElementById('lookroll').value = activeLook.roll
 
+    minRange = activeLook.timestamp
+    maxRange = unvr.srcDuration
+    nextLook = null
+    if (activeLookIndex+1) < unvr.looks.length
+      nextLook = unvr.looks[activeLookIndex+1]
+      maxRange = nextLook.timestamp - 1
+
+    console.log "minRange:#{minRange} maxRange:#{maxRange}"
+
+    lookscrubElement = document.getElementById('lookscrub')
+    lookscrubElement.min = minRange
+    lookscrubElement.max = maxRange
+    lookscrubElement.value = scrubTimestamp
+
   updateRangeText('scrub', 'scrubtext')
   updateRangeText('basefov', 'basefovtext')
+  updateRangeText('lookscrub', 'lookscrubtext')
   updateRangeText('lookfov', 'lookfovtext')
   updateRangeText('lookpitch', 'lookpitchtext')
   updateRangeText('lookyaw', 'lookyawtext')
@@ -331,6 +346,10 @@ window.onScrubChange = (event) ->
     refresh()
   , 60
 
+window.onLookScrubChange = ->
+  document.getElementById('scrub').value = parseInt(document.getElementById('lookscrub').value)
+  onScrubChange()
+
 # ---------------------------------------------------------------------------------------
 # Init
 
@@ -350,6 +369,12 @@ window.init = ->
   scrubElement.value = 0
   scrubElement.step = unvr.step
 
+  lookscrubElement = document.getElementById('lookscrub')
+  lookscrubElement.min = 0
+  lookscrubElement.max = unvr.srcDuration
+  lookscrubElement.value = 0
+  lookscrubElement.step = 1
+
   basefovElement = document.getElementById('basefov')
   basefovElement.min = 0
   basefovElement.max = 120
@@ -363,20 +388,20 @@ window.init = ->
   lookfovElement.value = unvr.basefov
 
   lookpitchElement = document.getElementById('lookpitch')
-  lookpitchElement.min = -50
-  lookpitchElement.max = 50
+  lookpitchElement.min = -60
+  lookpitchElement.max = 60
   lookpitchElement.step = 1
   lookpitchElement.value = 0
 
   lookyawElement = document.getElementById('lookyaw')
-  lookyawElement.min = -50
-  lookyawElement.max = 50
+  lookyawElement.min = -60
+  lookyawElement.max = 60
   lookyawElement.step = 1
   lookyawElement.value = 0
 
   lookrollElement = document.getElementById('lookroll')
-  lookrollElement.min = -50
-  lookrollElement.max = 50
+  lookrollElement.min = -60
+  lookrollElement.max = 60
   lookrollElement.step = 1
   lookrollElement.value = 0
 
